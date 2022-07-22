@@ -38,7 +38,7 @@ function createMessageTemplate(templateName) {
       category: "TRANSACTIONAL",
       components: [{
         type: "BODY",
-        text: "You Lesson Plan"
+        text: "Your Lesson Plan"
           + "\n*Course*: {{1}}"
           + "\n*Contents*: {{2}}"
           + "\nPlease reply to this message if you have any questions.",

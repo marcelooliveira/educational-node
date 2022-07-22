@@ -78,7 +78,7 @@ function createMessageTemplate(templateName) {
           type: "BODY", 
           text:"You Lesson Plan"
           +"\n*Course*: {{1}}"
-          +"\n*Lesson*: {{2}}"
+          +"\n*Contents*: {{2}}"
           +"\nPlease reply to this message if you have any questions.",
           example: {
             body_text: [
@@ -138,7 +138,7 @@ function getLessonPlanTemplatedMessageInput(recipient, templateName, lessonPlan)
             },
             {
               "type": "text",
-              "text": lessonPlan.class
+              "text": lessonPlan.contents
             }
           ]
         }

@@ -12,8 +12,17 @@ router.post('/', function(req, res, next) {
 
   const templateName = process.env.TEMPLATE_NAME;
 
-  const lessonPlan = { thumbnail: "https://www.python.org/static/community_logos/python-logo-master-v3-TM-flattened.png", course: "Python", teacher: "Alice Smith", class: "Variables", objectives: "Learn how to create and use a Python variable, a symbolic name that is a reference or pointer to an object." };
-  // var data = getLessonPlanTemplatedMessageInput(process.env.RECIPIENT_WAID, templateName);
+  const lessonPlan = { thumbnail: "https://www.python.org/static/community_logos/python-logo-master-v3-TM-flattened.png", course: "Python", 
+  contents: `*Lesson 1*: Introduction to Python`
++ `, *Lesson 2*: Functions, Booleans and Modules`
++ `, *Lesson 3*: Sequences, Iteration and String Formatting`
++ `, *Lesson 4*: Dictionaries and Sets`
++ `, *Lesson 5*: Exceptions`
++ `, *Lesson 6*: Lambda Functions`
++ `, *Lesson 7*: Object Oriented Programming`
++ `, *Lesson 8*: Properties`
++ `, *Lesson 9*: Iterators`
++ `, *Lesson 10*: Regular Expressions` };
   
   var data = getLessonPlanTemplatedMessageInput(process.env.RECIPIENT_WAID, templateName
     , lessonPlan);

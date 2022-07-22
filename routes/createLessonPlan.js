@@ -16,8 +16,8 @@ router.post('/', function (req, res, next) {
       let templates = response.data.data.filter(t => t.name == templateName && t.status === 'APPROVED')
 
       if (templates.length > 0) {
-        console.log(`Template: ${templates[0].name} already exists. Redirecting to catalog.`)
-        res.redirect('/catalog');
+        console.log(`Template: ${templates[0].name} already exists. Redirecting to courses.`)
+        res.redirect('/courses');
         return;
       }
 
@@ -26,7 +26,7 @@ router.post('/', function (req, res, next) {
       createMessageTemplate(templateName)
         .then(function (response) {
           console.log(response)
-          res.redirect('/catalog');
+          res.redirect('/courses');
           return;
         })
         .catch(function (error) {

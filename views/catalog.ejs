@@ -18,13 +18,24 @@
               <img src="<%=lessonPlan.thumbnail%>" class="card-img-top" alt="<%=lessonPlan.course %>"/>
               <div class="card-body">
                 <h5 class="card-title"><%= lessonPlan.course %></h5>
-                <p class="card-text"><%= lessonPlan.contents %></p>
+                <ul>
+                  <% lessonPlan.contents.forEach(function(content,index) { %>
+                    <li class="card-text">
+                      <span>
+                        <%= content.module %>
+                      </span>
+                      <span>
+                        <%= content.name %>
+                      </span>
+                    </li>
+                    <% }) %>
+                  </ul>
                 <p>
                   <form method="POST" action="/buyTicket">
                     <div class="container">
                       <input type="hidden" name="id" value="<%=lessonPlan.id%>"/>
                       <div class="row gx-5">
-                        <input type="submit" value="🎫 Buy" class="col col-5"/>
+                        <input type="submit" value="&#x1F4E8; Send Message" class="col"/>
                       </div>
                     </div>
                   </form>

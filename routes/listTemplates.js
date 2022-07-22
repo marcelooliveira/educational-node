@@ -6,7 +6,7 @@ const { listTemplates } = require("../messageHelper");
 
 router.use(bodyParser.json());
 
-router.post('/', function(req, res, next) {
+router.post('/', function (req, res, next) {
 
   const templateName = process.env.TEMPLATE_NAME;
 

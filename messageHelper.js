@@ -22,7 +22,7 @@ function getTextMessageInput(recipient, text) {
     "to": recipient,
     "type": "text",
     "text": {
-        "body": text
+      "body": text
     }
   });
 }
@@ -32,63 +32,65 @@ function listTemplates() {
   return axios({
     method: 'get',
     url: `https://graph.facebook.com/${process.env.VERSION}/${process.env.BUSINESS_ACCOUNT_ID}/message_templates`
-    + `?limit=1000`
-    + `&access_token=${process.env.ACCESS_TOKEN}`})
+      + `?limit=1000`
+      + `&access_token=${process.env.ACCESS_TOKEN}`
+  })
 }
 
 function deleteMessageTemplate(templateName) {
 
-    return axios({
-      method: 'delete',
-      url: `https://graph.facebook.com/${process.env.VERSION}/${process.env.BUSINESS_ACCOUNT_ID}/message_templates`
+  return axios({
+    method: 'delete',
+    url: `https://graph.facebook.com/${process.env.VERSION}/${process.env.BUSINESS_ACCOUNT_ID}/message_templates`
       + `?name=${templateName}`
-      + `&access_token=${process.env.ACCESS_TOKEN}`})
+      + `&access_token=${process.env.ACCESS_TOKEN}`
+  })
 }
 
 function createMessageTemplate(templateName) {
 
-    var config = {
-      method: 'post',
-      url: `https://graph.facebook.com/${process.env.VERSION}/${process.env.BUSINESS_ACCOUNT_ID}/message_templates`,
-      headers: {
-        'Authorization': `Bearer ${process.env.ACCESS_TOKEN}`,
-        'Content-Type': 'application/json'
+  var config = {
+    method: 'post',
+    url: `https://graph.facebook.com/${process.env.VERSION}/${process.env.BUSINESS_ACCOUNT_ID}/message_templates`,
+    headers: {
+      'Authorization': `Bearer ${process.env.ACCESS_TOKEN}`,
+      'Content-Type': 'application/json'
+    },
+    data: {
+      name: templateName,
+      category: "TRANSACTIONAL",
+      components: [{
+        type: "BODY",
+        text: "You Lesson Plan"
+          + "\n*Course*: {{1}}"
+          + "\n*Contents*: {{2}}"
+          + "\nPlease reply to this message if you have any questions.",
+        example: {
+          body_text: [
+            [
+              "example-text-1",
+              "example-text-2",
+            ]
+          ]
+        }
       },
-      data: {
-        name: templateName,
-        category: "TRANSACTIONAL",
-        components: [{
-          type: "BODY", 
-          text:"You Lesson Plan"
-          +"\n*Course*: {{1}}"
-          +"\n*Contents*: {{2}}"
-          +"\nPlease reply to this message if you have any questions.",
-          example: {
-            body_text: [
-              [
-                "example-text-1",
-                "example-text-2",
-              ]
-            ]
-          }          
-        },
-        {
-          "type": "HEADER",
-          "format": "IMAGE",
-          "text": null,
-          "buttons": null,
-          "example": {
-            "header_handle": [
-              "3:cHl0aG9uLnBuZw==:aW1hZ2UvcG5n:ARaYnSw33HrOULyG-_li1u81YTVjlcg6l4cgPmBrH_YXtfQcgOmmB85JO4Pi-oDoMmyGN6jq1SWCveEEHW3j8BnQUJ7sc6pNLcwJnENtd17EPQ:e:1658795608:ARZ_AdYaUXac53j97jg"
-            ]
-          }
-        }],        
-        "language": "en_US"
-      }
-    };
+      {
+        "type": "HEADER",
+        "format": "IMAGE",
+        "text": null,
+        "buttons": null,
+        "example": {
+          "header_handle": [
+            "3:cHl0aG9uLnBuZw==:aW1hZ2UvcG5n:ARaYnSw33HrOULyG-_li1u81YTVjlcg6l4cgPmBrH_YXtfQcgOmmB85JO4Pi-oDoMmyGN6jq1SWCveEEHW3j8BnQUJ7sc6pNLcwJnENtd17EPQ:e:1658795608:ARZ_AdYaUXac53j97jg"
+          ]
+        }
+      }],
+      "language": "en_US"
+    }
+  };
 
-    return axios(config)
-  }
+  return axios(config)
+}
 
 function getLessonPlanTemplatedMessageInput(recipient, templateName, lp) {
 
@@ -96,8 +98,8 @@ function getLessonPlanTemplatedMessageInput(recipient, templateName, lp) {
     course: lp.course,
     thumbnail: lp.thumbnail,
     contents: lp.contents
-                .map(i => '*Module ' + i.module + '* - ' + i.name)
-                .join(', ')
+      .map(i => '*Module ' + i.module + '* - ' + i.name)
+      .join(', ')
   }
 
   return JSON.stringify({

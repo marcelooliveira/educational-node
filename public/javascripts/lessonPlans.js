@@ -57,6 +57,6 @@ const lessonPlans = [{
 }
 ]
 
-if (exports ) {
+if (exports) {
   exports.lessonPlans = lessonPlans;
 }

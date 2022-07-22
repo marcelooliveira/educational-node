@@ -12,18 +12,37 @@ router.post('/', function(req, res, next) {
 
   const templateName = process.env.TEMPLATE_NAME;
 
-  const lessonPlan = { thumbnail: "https://www.python.org/static/community_logos/python-logo-master-v3-TM-flattened.png", course: "Python", 
-  contents: `*Lesson 1*: Introduction to Python`
-+ `, *Lesson 2*: Functions, Booleans and Modules`
-+ `, *Lesson 3*: Sequences, Iteration and String Formatting`
-+ `, *Lesson 4*: Dictionaries and Sets`
-+ `, *Lesson 5*: Exceptions`
-+ `, *Lesson 6*: Lambda Functions`
-+ `, *Lesson 7*: Object Oriented Programming`
-+ `, *Lesson 8*: Properties`
-+ `, *Lesson 9*: Iterators`
-+ `, *Lesson 10*: Regular Expressions` };
+//   const lessonPlan = { course: "Python", thumbnail: "https://www.python.org/static/community_logos/python-logo-master-v3-TM-flattened.png", 
+//   contents: `*Module 1*: Introduction to Python`
+// + `, *Module 2*: Functions, Booleans and Modules`
+// + `, *Module 3*: Sequences, Iteration and String Formatting`
+// + `, *Module 4*: Dictionaries and Sets`
+// + `, *Module 5*: Exceptions`
+// + `, *Module 6*: Lambda Functions`
+// + `, *Module 7*: Object Oriented Programming`
+// + `, *Module 8*: Properties`
+// + `, *Module 9*: Iterators`
+// + `, *Module 10*: Regular Expressions` };
+
+// const lessonPlan = { course: "JavaScript", thumbnail: "https://cdn.pixabay.com/photo/2015/04/23/17/41/javascript-736400__340.png", 
+// contents: '*Module 1*: Variable declaration'
+// + ', *Module 2*: Operators'
+// + ', *Module 3*: Control Statements'
+// + ', *Module 4*: Error Handling'
+// + ', *Module 5*: Understanding arrays'
+// + ', *Module 6*: Function Declaration' };
   
+const lessonPlan = { course: "C#", thumbnail: "https://docs.microsoft.com/en-us/windows/images/csharp-logo.png", 
+contents: '*Module 1* - Getting Started with C#'
++ ', *Module 2* - .NET Framework'
++ ', *Module 3* - Object Orientated Programming'
++ ', *Module 4* - Variables & Data Types'
++ ', *Module 5* - Operators'
++ ', *Module 6* - Arrays'
++ ', *Module 7* - Iteration'
++ ', *Module 8* - Classes & Objects'
++ ', *Module 9* - Collections' };
+
   var data = getLessonPlanTemplatedMessageInput(process.env.RECIPIENT_WAID, templateName
     , lessonPlan);
 

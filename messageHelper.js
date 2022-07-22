@@ -24,16 +24,6 @@ function listTemplates() {
   })
 }
 
-function deleteMessageTemplate(templateName) {
-
-  return axios({
-    method: 'delete',
-    url: `https://graph.facebook.com/${process.env.VERSION}/${process.env.BUSINESS_ACCOUNT_ID}/message_templates`
-      + `?name=${templateName}`
-      + `&access_token=${process.env.ACCESS_TOKEN}`
-  })
-}
-
 function createMessageTemplate(templateName) {
 
   var config = {
@@ -132,7 +122,6 @@ function getLessonPlanTemplatedMessageInput(recipient, templateName, lp) {
 module.exports = {
   sendMessage: sendMessage,
   listTemplates: listTemplates,
-  deleteMessageTemplate: deleteMessageTemplate,
   createMessageTemplate: createMessageTemplate,
   getLessonPlanTemplatedMessageInput: getLessonPlanTemplatedMessageInput
 };

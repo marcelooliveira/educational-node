@@ -64,29 +64,6 @@ function deleteMessageTemplate(templateName) {
 
 function createMessageTemplate(templateName) {
 
-  const messageText = `Lesson Plan for {{1}}`
-  + `\n`
-  + `\nTeacher: {{2}}`
-  + `\nClass: {{3}}`
-  + `\nObjective: {{4}}`
-
-  var components = [
-    {
-      type: "BODY",
-      text: messageText,
-      example:{body_text:[["body-example-1","body-example-2","body-example-3","body-example-4"]]}
-    }
-  ]
-
-  // var config = {
-  //   method: 'post',
-  //   url: `https://graph.facebook.com/${process.env.VERSION}/${process.env.BUSINESS_ACCOUNT_ID}/message_templates`
-  //   + `?name=${templateName}`
-  //   + `&language=en_US`
-  //   + `&category=TRANSACTIONAL`
-  //   + `&components=${encodeURI(JSON.stringify(components))}`
-  //   + `&access_token=${process.env.ACCESS_TOKEN}`}
-
     var config = {
       method: 'post',
       url: `https://graph.facebook.com/${process.env.VERSION}/${process.env.BUSINESS_ACCOUNT_ID}/message_templates`,
@@ -97,28 +74,12 @@ function createMessageTemplate(templateName) {
       data: {
         name: templateName,
         category: "TRANSACTIONAL",
-        // components: [
-        //   {
-        //     type: "BODY",
-        //     text: "Lesson Plan for {{1}}\nTeacher: {{2}}\nClass: {{3}}\nObjectives: {{4}}\nThis is the lesson plan for your course.",
-        //     example: {
-        //       body_text: [
-        //         [
-        //           "Python Course",
-        //           "Alice Smith",
-        //           "strings and numbers",
-        //           "Learn how to create and use a Python variable, a symbolic name that is a reference or pointer to an object."
-        //         ]
-        //       ]
-        //     }
-        //   }
-        // ],
         components: [{
           type: "BODY", 
           text:"You Lesson Plan"
-          +"\nCourse: {{1}}"
-          +"\nClass: {{2}}"
-          +"\nPlease let us know if you have any questions.",
+          +"\n*Course*: {{1}}"
+          +"\n*Lesson*: {{2}}"
+          +"\nPlease reply to this message if you have any questions.",
           example: {
             body_text: [
               [
@@ -177,15 +138,7 @@ function getLessonPlanTemplatedMessageInput(recipient, templateName, lessonPlan)
             },
             {
               "type": "text",
-              "text": lessonPlan.teacher
-            },
-            {
-              "type": "text",
               "text": lessonPlan.class
-            },
-            {
-              "type": "text",
-              "text": lessonPlan.objectives
             }
           ]
         }

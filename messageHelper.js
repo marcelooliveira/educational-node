@@ -107,7 +107,16 @@ function createMessageTemplate(templateName) {
     return axios(config)
   }
 
-function getLessonPlanTemplatedMessageInput(recipient, templateName, lessonPlan) {
+function getLessonPlanTemplatedMessageInput(recipient, templateName, lp) {
+
+  const lessonPlan = {
+    course: lp.course,
+    thumbnail: lp.thumbnail,
+    contents: lp.contents
+                .map(i => '*Module ' + i.module + '* - ' + i.name)
+                .join(', ')
+  }
+
   return JSON.stringify({
     "messaging_product": "whatsapp",
     "to": recipient,

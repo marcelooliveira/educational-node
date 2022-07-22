@@ -7,54 +7,70 @@ const { sendMessage, getLessonPlanTemplatedMessageInput } = require("../messageH
 
 router.use(bodyParser.json());
 
-router.post('/', function(req, res, next) {
-  var movie = movies.filter((v,i) => v.id == req.body.id)[0];
+router.post('/', function (req, res, next) {
+  var movie = movies.filter((v, i) => v.id == req.body.id)[0];
 
   const templateName = process.env.TEMPLATE_NAME;
 
-  const lessonPlans = [{ course: "Python", thumbnail: "https://www.python.org/static/community_logos/python-logo-master-v3-TM-flattened.png", 
-      contents: `*Module 1*: Introduction to Python`
-    + `, *Module 2*: Functions, Booleans and Modules`
-    + `, *Module 3*: Sequences, Iteration and String Formatting`
-    + `, *Module 4*: Dictionaries and Sets`
-    + `, *Module 5*: Exceptions`
-    + `, *Module 6*: Lambda Functions`
-    + `, *Module 7*: Object Oriented Programming`
-    + `, *Module 8*: Properties`
-    + `, *Module 9*: Iterators`
-    + `, *Module 10*: Regular Expressions` },
-    { course: "JavaScript", thumbnail: "https://cdn.pixabay.com/photo/2015/04/23/17/41/javascript-736400__340.png", 
-    contents: '*Module 1*: Variable declaration'
-    + ', *Module 2*: Operators'
-    + ', *Module 3*: Control Statements'
-    + ', *Module 4*: Error Handling'
-    + ', *Module 5*: Understanding arrays'
-    + ', *Module 6*: Function Declaration' },
-    { course: "C#", thumbnail: "https://docs.microsoft.com/en-us/windows/images/csharp-logo.png", 
-      contents: '*Module 1* - Getting Started with C#'
-      + ', *Module 2* - .NET Framework'
-      + ', *Module 3* - Object Orientated Programming'
-      + ', *Module 4* - Variables & Data Types'
-      + ', *Module 5* - Operators'
-      + ', *Module 6* - Arrays'
-      + ', *Module 7* - Iteration'
-      + ', *Module 8* - Classes & Objects'
-      + ', *Module 9* - Collections' },
-    {
-      course: "SQL", thumbnail: "https://upload.wikimedia.org/wikipedia/commons/8/87/Sql_data_base_with_logo.png",
-      contents: '*Module 1* - SQL Introduction'
-      + ', *Module 2* - SQL Database User'
-      + ', *Module 3* - SQL Database'
-      + ', *Module 4* - SQL Table'
-      + ', *Module 5* - SQL Constraints'
-      + ', *Module 6* - SQL Keywords'
-      + ', *Module 7* - SQL Data Types'
-      + ', *Module 8* - SQL Operators'
-    }
-]
+  const lessonPlans = [{
+    course: 'Python', thumbnail: 'https://www.python.org/static/community_logos/python-logo-master-v3-TM-flattened.png',
+    contents: [
+      { module: 1, name: 'Introduction to Python' },
+      { module: 2, name: 'Functions, Booleans and Modules' },
+      { module: 3, name: 'Sequences, Iteration and String Formatting' },
+      { module: 4, name: 'Dictionaries and Sets' },
+      { module: 5, name: 'Exceptions' },
+      { module: 6, name: 'Lambda Functions' },
+      { module: 7, name: 'Object Oriented Programming' },
+      { module: 8, name: 'Properties' },
+      { module: 9, name: 'Iterators' },
+      { module: 10, name: 'Regular Expressions' }
+    ]
+  },
+  {
+    course: 'JavaScript', thumbnail: 'https://cdn.pixabay.com/photo/2015/04/23/17/41/javascript-736400__340.png',
+    contents: [
+      { module: 1, name: 'Variable declaration' },
+      { module: 2, name: 'Operators' },
+      { module: 3, name: 'Control Statements' },
+      { module: 4, name: 'Error Handling' },
+      { module: 5, name: 'Understanding arrays' },
+      { module: 6, name: 'Function Declaration' }
+    ]
+  },
+  {
+    course: 'C#', thumbnail: 'https://docs.microsoft.com/en-us/windows/images/csharp-logo.png',
+    contents: [
+      { module: 1, name: 'Getting Started with C#' },
+      { module: 2, name: '.NET Framework' },
+      { module: 3, name: 'Object Orientated Programming' },
+      { module: 4, name: 'Variables & Data Types' },
+      { module: 5, name: 'Operators' },
+      { module: 6, name: 'Arrays' },
+      { module: 7, name: 'Iteration' },
+      { module: 8, name: 'Classes & Objects' },
+      { module: 9, name: 'Collections' }
+    ]
+  },
+  {
+    course: 'SQL', thumbnail: 'https://upload.wikimedia.org/wikipedia/commons/8/87/Sql_data_base_with_logo.png',
+    contents: [
+      { module: 1, name: 'SQL Introduction' },
+      { module: 2, name: 'SQL Database User' },
+      { module: 3, name: 'SQL Database' },
+      { module: 4, name: 'SQL Table' },
+      { module: 5, name: 'SQL Constraints' },
+      { module: 6, name: 'SQL Keywords' },
+      { module: 7, name: 'SQL Data Types' },
+      { module: 8, name: 'SQL Operators' }
+    ]
+  }
+  ]
+
+  const lessonPlan = lessonPlans[1];
 
   var data = getLessonPlanTemplatedMessageInput(process.env.RECIPIENT_WAID, templateName
-    , lessonPlans[3]);
+    , lessonPlan);
 
   sendMessage(data)
     .then(function (response) {

@@ -10,7 +10,7 @@ var welcomeRouter = require('./routes/welcome');
 var coursesRouter = require('./routes/courses');
 var listTemplatesRouter = require('./routes/listTemplates');
 var deleteLessonPlanRouter = require('./routes/deleteLessonPlan');
-var createLessonPlanRouter = require('./routes/createLessonPlan');
+var createLessonPlanTemplateRouter = require('./routes/createLessonPlanTemplate');
 var sendLessonPlanRouter = require('./routes/sendLessonPlan');
 
 var app = express();
@@ -31,7 +31,7 @@ app.use('/welcome', welcomeRouter);
 app.use('/courses', coursesRouter);
 app.use('/listTemplates', listTemplatesRouter);
 app.use('/deleteLessonPlan', deleteLessonPlanRouter);
-app.use('/createLessonPlan', createLessonPlanRouter);
+app.use('/createLessonPlanTemplate', createLessonPlanTemplateRouter);
 app.use('/sendLessonPlan', sendLessonPlanRouter);
 
 // catch 404 and forward to error handler

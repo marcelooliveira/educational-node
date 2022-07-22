@@ -6,7 +6,6 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var welcomeRouter = require('./routes/welcome');
 var coursesRouter = require('./routes/courses');
 var listTemplatesRouter = require('./routes/listTemplates');
 var deleteLessonPlanRouter = require('./routes/deleteLessonPlan');
@@ -27,7 +26,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/welcome', welcomeRouter);
 app.use('/courses', coursesRouter);
 app.use('/listTemplates', listTemplatesRouter);
 app.use('/deleteLessonPlan', deleteLessonPlanRouter);

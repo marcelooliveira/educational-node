@@ -14,19 +14,6 @@ function sendMessage(data) {
   return axios(config)
 }
 
-function getTextMessageInput(recipient, text) {
-  return JSON.stringify({
-    "messaging_product": "whatsapp",
-    "preview_url": false,
-    "recipient_type": "individual",
-    "to": recipient,
-    "type": "text",
-    "text": {
-      "body": text
-    }
-  });
-}
-
 function listTemplates() {
 
   return axios({
@@ -144,7 +131,6 @@ function getLessonPlanTemplatedMessageInput(recipient, templateName, lp) {
 
 module.exports = {
   sendMessage: sendMessage,
-  getTextMessageInput: getTextMessageInput,
   listTemplates: listTemplates,
   deleteMessageTemplate: deleteMessageTemplate,
   createMessageTemplate: createMessageTemplate,

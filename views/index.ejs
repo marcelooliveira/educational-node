@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-US">
   <head>
     <title>Educational Demo for Node.js</title>
     <h1 class="text-center">Educational Demo for Node.js</h1>
@@ -13,54 +13,36 @@
   <body>
     <div class="d-flex flex-row justify-content-center align-items-center">
       <div class="border px-3">
+        
         <div class="row">
-          
+          <div class="col-sm-6 d-none d-sm-block">
+            <img
+              src="https://cdn.pixabay.com/photo/2018/05/19/01/23/online-3412498__340.jpg"
+              alt="Login image"
+              class="w-100 vh-50 pt-3 pb-3"
+              style="object-fit: cover; object-position: left"
+            />
+          </div>
           <div class="col-sm-6 text-black">
-            
-            <div class="align-items-center">
-              
+            <div class="px-5 ms-xl-4">
+              <em class="fas fa-crow fa-2x me-3 pt-5 mt-xl-4"
+                style="color: #709085"
+              ></em>
+            </div>
 
-              <div class="row">
-                <form class="w-100" method="post" action="/listTemplates">
-                  <div class="d-grid gap-2 col-6 mx-auto">
-                    <input type="submit" class="btn btn-secondary btn-lg btn-block" name="list-templates" value="📝 List Templates"/>
-                  </div>
-                </form>
-              </div>
-              <br/>
+            <div class="d-flex align-items-center h-custom-2">
+              <form class="w-100" method="post" action="/createLessonPlan">
 
-              <div class="row">
-                <form class="w-100" method="post" action="/deleteLessonPlan">
-                  <div class="d-grid gap-2 col-6 mx-auto">
-                    <input type="submit" class="btn btn-danger btn-lg btn-block" name="delete-template" value="❌ Delete Message Template"/>
-                  </div>
-                </form>
-              </div>
-              <br/>
-              
-              <div class="row">
-                <form class="w-100" method="post" action="/createLessonPlan">
-                  <div class="d-grid gap-2 col-6 mx-auto">
-                    <input type="submit" class="btn btn-primary btn-lg btn-block" name="create-template" value="🆕 Create Message Template"/>
-                  </div>
-                </form>
-              </div>
-              <br/>
-              
-              <div class="row">
-                <form class="w-100" method="post" action="/sendLessonPlan">
-                  <div class="d-grid gap-2 col-6 mx-auto">
-                    <input type="submit" class="btn btn-success btn-lg btn-block" name="send-template" value="📨 Send Message Template"/>
-                  </div>
-                </form>
-              </div>
-              <br/>
-
+                <div class="pt-1 mb-4">
+                  <input type="submit" class="btn btn-primary btn-lg btn-block" name="create-template" value="🆕 Create Message Template"/>
+                </div>
+              </form>
             </div>
           </div>
-        </div>
 
+        </div>
       </div>
+    </div>
      
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

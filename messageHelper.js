@@ -27,23 +27,6 @@ function getTextMessageInput(recipient, text) {
   });
 }
 
-function getTemplatedMessageInput(recipient, templateName, consumption) {
-  return JSON.stringify({
-    "messaging_product": "whatsapp",
-    "to": recipient,
-    "type": "template",
-    "template": {
-      "name": "sample_movie_ticket_confirmation",
-      "language": {
-        "code": "en_US"
-      },
-    
-
-    }
-  }
-  );
-}
-
 function listTemplates() {
 
   return axios({
@@ -160,7 +143,6 @@ function getLessonPlanTemplatedMessageInput(recipient, templateName, lp) {
 module.exports = {
   sendMessage: sendMessage,
   getTextMessageInput: getTextMessageInput,
-  getTemplatedMessageInput: getTemplatedMessageInput,
   listTemplates: listTemplates,
   deleteMessageTemplate: deleteMessageTemplate,
   createMessageTemplate: createMessageTemplate,

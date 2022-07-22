@@ -2,17 +2,15 @@ var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
 require('dotenv').config()
-var { movies } = require('../public/javascripts/lessonPlans');
+var { lessonPlans } = require('../public/javascripts/lessonPlans');
 const { sendMessage, getLessonPlanTemplatedMessageInput } = require("../messageHelper");
 
 router.use(bodyParser.json());
 
 router.post('/', function (req, res, next) {
-  var movie = movies.filter((v, i) => v.id == req.body.id)[0];
+  var lessonPlan = lessonPlans.filter((v, i) => v.id == req.body.id)[0];
 
   const templateName = process.env.TEMPLATE_NAME;
-
-  const lessonPlan = lessonPlans[1];
 
   var data = getLessonPlanTemplatedMessageInput(process.env.RECIPIENT_WAID, templateName
     , lessonPlan);

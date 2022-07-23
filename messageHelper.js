@@ -14,6 +14,56 @@ function sendMessage(data) {
   return axios(config)
 }
 
+function getLessonPlanTemplatedMessageInput(recipient, templateName, lp) {
+
+  const lessonPlan = {
+    course: lp.course,
+    thumbnail: lp.thumbnail,
+    contents: lp.contents
+      .map(i => '*Module ' + i.module + '* - ' + i.name)
+      .join(', ')
+  }
+
+  return JSON.stringify({
+    "messaging_product": "whatsapp",
+    "to": recipient,
+    "type": "template",
+    "template": {
+      "name": templateName,
+      "language": {
+        "code": "en_US"
+      },
+      "components": [
+        {
+          "type": "header",
+          "parameters": [
+            {
+              "type": "image",
+              "image": {
+                "link": lessonPlan.thumbnail
+              }
+            }
+          ]
+        },
+        {
+          "type": "body",
+          "parameters": [
+            {
+              "type": "text",
+              "text": lessonPlan.course
+            },
+            {
+              "type": "text",
+              "text": lessonPlan.contents
+            }
+          ]
+        }
+      ]
+    }
+  }
+  );
+}
+
 function listTemplates() {
 
   return axios({
@@ -67,56 +117,6 @@ function createMessageTemplate(templateName) {
   };
 
   return axios(config)
-}
-
-function getLessonPlanTemplatedMessageInput(recipient, templateName, lp) {
-
-  const lessonPlan = {
-    course: lp.course,
-    thumbnail: lp.thumbnail,
-    contents: lp.contents
-      .map(i => '*Module ' + i.module + '* - ' + i.name)
-      .join(', ')
-  }
-
-  return JSON.stringify({
-    "messaging_product": "whatsapp",
-    "to": recipient,
-    "type": "template",
-    "template": {
-      "name": templateName,
-      "language": {
-        "code": "en_US"
-      },
-      "components": [
-        {
-          "type": "header",
-          "parameters": [
-            {
-              "type": "image",
-              "image": {
-                "link": lessonPlan.thumbnail
-              }
-            }
-          ]
-        },
-        {
-          "type": "body",
-          "parameters": [
-            {
-              "type": "text",
-              "text": lessonPlan.course
-            },
-            {
-              "type": "text",
-              "text": lessonPlan.contents
-            }
-          ]
-        }
-      ]
-    }
-  }
-  );
 }
 
 module.exports = {

@@ -1,4 +1,7 @@
 var axios = require('axios');
+var path = require('path')
+var FormData = require('form-data');
+var fs = require('fs');
 
 function sendMessage(data) {
   var config = {
@@ -74,7 +77,69 @@ function listTemplates() {
   })
 }
 
-function createMessageTemplate(templateName) {
+function uploadImage() {
+  return axios({
+      method: 'post',
+      url: `https://graph.facebook.com/${process.env.VERSION}/app/uploads`
+      + `?access_token=${process.env.ACCESS_TOKEN}&file_type=image/png`
+    }).then(function (response) {
+      const uploadSessionId = response.data.id
+      
+      const filePath = path.join(__dirname, "/public/images/Python.png");
+
+      var data = new FormData();
+      data.append('messaging_product', 'whatsapp');
+      data.append('file', fs.createReadStream(filePath));
+      
+      var config = {
+        method: 'post',
+        url: `https://graph.facebook.com/${process.env.VERSION}/${uploadSessionId}`,
+        headers: { 
+          'Authorization': `OAuth ${process.env.ACCESS_TOKEN}`,
+          'file_offset': 0,
+          'Host': 'graph.facebook.com',
+          'Connection': 'close',
+          'Content-Type': 'multipart/form-data', 
+        },
+        data : filePath
+      };
+      
+      return axios(config)
+    })
+}
+
+function getMediaUrl(mediaId) {
+  var config = {
+    method: 'get',
+    url: `https://graph.facebook.com/${process.env.VERSION}/${mediaId}`,
+    headers: {
+      'Authorization': `Bearer ${process.env.ACCESS_TOKEN}`,
+      'Content-Type': 'application/json'
+    }
+  };
+  
+  return axios(config);
+}
+
+function uploadImageAndCreateMessageTemplate(templateName) {
+  return uploadImage()
+  .then(function (response) {
+    const fileHandle = response.data.h;
+
+    createMessageTemplate(templateName, fileHandle)
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });    
+  })
+  .catch(function (error) {
+    console.log(error);
+  });  
+}
+
+function createMessageTemplate(templateName, fileHandle) {
 
   var config = {
     method: 'post',
@@ -102,15 +167,11 @@ function createMessageTemplate(templateName) {
         }
       },
       {
-        "type": "HEADER",
-        "format": "IMAGE",
-        "text": null,
-        "buttons": null,
-        "example": {
-          "header_handle": [
-            "3:cHl0aG9uLnBuZw==:aW1hZ2UvcG5n:ARaYnSw33HrOULyG-_li1u81YTVjlcg6l4cgPmBrH_YXtfQcgOmmB85JO4Pi-oDoMmyGN6jq1SWCveEEHW3j8BnQUJ7sc6pNLcwJnENtd17EPQ:e:1658795608:ARZ_AdYaUXac53j97jg"
-          ]
-        }
+        type: "HEADER",
+        format: "IMAGE",
+        text: null,
+        buttons: null,
+        example: {header_handle:[fileHandle]}
       }],
       "language": "en_US"
     }
@@ -122,6 +183,8 @@ function createMessageTemplate(templateName) {
 module.exports = {
   sendMessage: sendMessage,
   listTemplates: listTemplates,
+  uploadImage: uploadImage,
+  uploadImageAndCreateMessageTemplate: uploadImageAndCreateMessageTemplate,
   createMessageTemplate: createMessageTemplate,
   getLessonPlanTemplatedMessageInput: getLessonPlanTemplatedMessageInput
 };

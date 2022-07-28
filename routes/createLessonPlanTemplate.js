@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
 require('dotenv').config()
-const { createMessageTemplate } = require("../messageHelper");
+const { uploadImageAndCreateMessageTemplate  } = require("../messageHelper");
 const { listTemplates } = require("../messageHelper");
 
 router.use(bodyParser.json());
@@ -23,7 +23,7 @@ router.post('/', function (req, res, next) {
 
       console.log(`Creating template: ${templateName}.`)
 
-      createMessageTemplate(templateName)
+      uploadImageAndCreateMessageTemplate(templateName)
         .then(function (response) {
           console.log(response)
           res.redirect('/courses');
